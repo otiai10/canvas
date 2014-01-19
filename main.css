@@ -1,0 +1,9 @@
+canvas {
+    border: solid thin black;
+}
+canvas:hover {
+    cursor: default;
+}
+canvas:active {
+    cursor: pointer;
+}
