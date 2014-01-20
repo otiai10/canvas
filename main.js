@@ -1,5 +1,5 @@
 var my = {
-    can: null,
+    canvas: null,
     context: null
 };
 var draw = function(e){
@@ -9,7 +9,7 @@ var draw = function(e){
     */
     var x = e.offsetX;
     var y = e.offsetY;
-    //var can = document.getElementById("myCanvas");
+    //var canvas = document.getElementById("myCanvas");
     my.context.fillStyle = "rgba(255,0,0,1)";
     my.context.fillRect(x,y,1,1);
 };
@@ -45,15 +45,15 @@ $(function(){
     var originalImage = new Image();
     originalImage.src = imageURI;
 
-    my.can = document.getElementById('canvas');
-    my.can.setAttribute('width', originalImage.width);
-    my.can.setAttribute('height',originalImage.height);
+    my.canvas = document.getElementById('canvas');
+    my.canvas.setAttribute('width', originalImage.width);
+    my.canvas.setAttribute('height',originalImage.height);
 
-    my.context = my.can.getContext("2d");
+    my.context = my.canvas.getContext("2d");
 
     initImage(originalImage);
 
-    my.can.addEventListener('mousemove',function(ev){
+    my.canvas.addEventListener('mousemove',function(ev){
         if (start == null) return;
         cancelRect();
 
@@ -64,7 +64,7 @@ $(function(){
 
         drawRect(start, end);
     });
-    my.can.addEventListener('mousedown',function(ev){
+    my.canvas.addEventListener('mousedown',function(ev){
 
         flag = true;
 
@@ -76,7 +76,7 @@ $(function(){
             y : ev.offsetY
         };
     });
-    my.can.addEventListener('mouseup',function(ev){
+    my.canvas.addEventListener('mouseup',function(ev){
 
         flag = false;
 
@@ -95,7 +95,7 @@ $(function(){
 
     $('#download').on('click',function(){
 
-        var jpegURI = my.can.toDataURL("image/jpeg");
+        var jpegURI = my.canvas.toDataURL("image/jpeg");
 
         var a = document.createElement('a');
         a.download = 'pic.jpeg';
