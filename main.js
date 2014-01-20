@@ -1,4 +1,7 @@
-var can, context;
+var my = {
+    can: null,
+    context: null
+};
 var draw = function(e){
     /*
     var x = e.clientX;
@@ -7,16 +10,16 @@ var draw = function(e){
     var x = e.offsetX;
     var y = e.offsetY;
     //var can = document.getElementById("myCanvas");
-    context.fillStyle = "rgba(255,0,0,1)";
-    context.fillRect(x,y,1,1);
+    my.context.fillStyle = "rgba(255,0,0,1)";
+    my.context.fillRect(x,y,1,1);
 };
 var flag = false;
 var start = null;
 var end   = null;
 
 var drawRect = function(start, end){
-    context.fillStyle = "rgba(0,255,0,0.5)";
-    context.fillRect(
+    my.context.fillStyle = "rgba(0,255,0,0.5)";
+    my.context.fillRect(
             start.x,
             start.y,
             end.x - start.x,
@@ -25,7 +28,7 @@ var drawRect = function(start, end){
 };
 var cancelRect = function(){
     if (end   == null) return;
-    context.clearRect(
+    my.context.clearRect(
             start.x,
             start.y,
             end.x - start.x,
@@ -34,7 +37,7 @@ var cancelRect = function(){
 };
 
 var initImage = function(img){
-    context.drawImage(img, 0, 0);
+    my.context.drawImage(img, 0, 0);
 };
 
 $(function(){
@@ -42,15 +45,15 @@ $(function(){
     var originalImage = new Image();
     originalImage.src = imageURI;
 
-    can = document.getElementById('canvas');
-    can.setAttribute('width', originalImage.width);
-    can.setAttribute('height',originalImage.height);
+    my.can = document.getElementById('canvas');
+    my.can.setAttribute('width', originalImage.width);
+    my.can.setAttribute('height',originalImage.height);
 
-    context = can.getContext("2d");
+    my.context = my.can.getContext("2d");
 
     initImage(originalImage);
 
-    canvas.addEventListener('mousemove',function(ev){
+    my.can.addEventListener('mousemove',function(ev){
         if (start == null) return;
         cancelRect();
 
@@ -61,7 +64,7 @@ $(function(){
 
         drawRect(start, end);
     });
-    canvas.addEventListener('mousedown',function(ev){
+    my.can.addEventListener('mousedown',function(ev){
 
         flag = true;
 
@@ -73,7 +76,7 @@ $(function(){
             y : ev.offsetY
         };
     });
-    canvas.addEventListener('mouseup',function(ev){
+    my.can.addEventListener('mouseup',function(ev){
 
         flag = false;
 
@@ -88,5 +91,15 @@ $(function(){
 
         start = null;
         end   = null;
+    });
+
+    $('#download').on('click',function(){
+
+        var jpegURI = my.can.toDataURL("image/jpeg");
+
+        var a = document.createElement('a');
+        a.download = 'pic.jpeg';
+        a.href     = jpegURI;
+        a.click();
     });
 });
