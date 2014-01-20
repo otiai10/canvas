@@ -33,9 +33,23 @@ var cancelRect = function(){
     );
 };
 
+var initImage = function(img){
+    context.drawImage(img, 0, 0);
+};
+
 $(function(){
+
+    var originalImage = new Image();
+    originalImage.src = imageURI;
+
     can = document.getElementById('canvas');
+    can.setAttribute('width', originalImage.width);
+    can.setAttribute('height',originalImage.height);
+
     context = can.getContext("2d");
+
+    initImage(originalImage);
+
     canvas.addEventListener('mousemove',function(ev){
         if (start == null) return;
         cancelRect();
