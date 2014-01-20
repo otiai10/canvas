@@ -18,7 +18,7 @@ var start = null;
 var end   = null;
 
 var drawRect = function(start, end){
-    my.context.fillStyle = "rgba(0,255,0,0.5)";
+    my.context.fillStyle = "rgba(37,37,37,1)";
     my.context.fillRect(
             start.x,
             start.y,
